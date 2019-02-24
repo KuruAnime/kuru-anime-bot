@@ -2,8 +2,8 @@
 import * as Sentry from '@sentry/browser'
 
 // ====================================================================================================[ DiscordJS Import ]===== //
-const Discord = require('discord.js')
-const Client = new Discord.Client()
+const discord = require('discord.js')
+const client = new discord.Client()
 
 // ===================================================================================================[ Dialogflow Import ]===== //
 const df = require('apiai')
@@ -43,12 +43,12 @@ const database: any = firebase.database()
 let guildPrefix: string
 
 // =============================================================================================[ Bot Mount Event Trigger ]===== //
-Client.on('ready', () => {
+client.on('ready', () => {
     console.log('Bot is ready.')
 })
 
 // ===========================================================================================[ Bot Message Event Trigger ]===== //
-Client.on('message', (message: any) => {
+client.on('message', (message: any) => {
     // ======================================================================================================[ Parameters ]===== //
     let parameterSplit: any = message.cleanContent.split(" ")
     let parameters: object = {
@@ -68,7 +68,7 @@ Client.on('message', (message: any) => {
         }
     })
     // =======================================================================[ Not Direct Message and not the bot itself ]===== //
-    if (message.channel.type !== 'dm' && Client.user.id !== message.author.id) {
+    if (message.channel.type !== 'dm' && client.user.id !== message.author.id) {
         // =============================================================================================[ Kuru Anime Only ]===== //
         if (message.guild.id === "510302403031990272") {
             // =======================================================================================[ Rabbit Cross Post ]===== //
@@ -105,7 +105,7 @@ Client.on('message', (message: any) => {
         }
     }
     // ===========================================================================[ Direct Message and not the bot itself ]===== //
-    if (message.channel.type === 'dm' && Client.user.id !== message.author.id) {
+    if (message.channel.type === 'dm' && client.user.id !== message.author.id) {
         // ==============================================================================================[ Dialogflow Bot ]===== //
         dialogflow({
             df: dfClient,
@@ -115,4 +115,4 @@ Client.on('message', (message: any) => {
 })
 
 // =======================================================================================================[ Discord Login ]===== //
-Client.login(process.env.BOT_TOKEN)
+client.login(process.env.BOT_TOKEN)
